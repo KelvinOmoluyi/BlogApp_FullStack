@@ -32,14 +32,19 @@ export class AuthService {
         try {
             return await this.account.get()
         } catch (error) {
-            console.log
+            console.log("Appwrite service :: getCurrentUser :: ", error)
+        }
+        return null
+    }
+    async logout(){
+        try {
+            await this.account.deleteSessions()
+        } catch (error){
+            console.log("Appwrite service :: logout() :: ", error)
         }
     }
-    async logout(){}
 }
 
-const client = new Client()
-    .setEndpoint('https://<REGION>.cloud.appwrite.io/v1') // Your API Endpoint
-    .setProject('<PROJECT_ID>');                 // Your project ID
-
-const account = new Account(client);
+// this involkes the constructor
+const authService = new AuthService()
+export default authService
