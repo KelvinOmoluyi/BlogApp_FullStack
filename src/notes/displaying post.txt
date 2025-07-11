@@ -1,0 +1,1 @@
+We made use of a package called html-react-parser
