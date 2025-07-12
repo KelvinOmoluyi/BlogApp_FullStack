@@ -2,7 +2,7 @@ import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService {
-    client = new client()
+    client = new Client()
 
     constructor(){
         this.client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId)
@@ -25,7 +25,7 @@ export class AuthService {
         try {
             return await this.account.createEmailPasswordSession(email, password)
         } catch (error) {
-            throw
+            throw error
         }
     }
     async getCurrentUser(){
