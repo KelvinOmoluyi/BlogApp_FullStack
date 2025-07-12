@@ -1,4 +1,4 @@
-import authService, { AuthService } from "../appwrite/auth";
+import authService from "../appwrite/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "./Button";
@@ -21,7 +21,7 @@ const Login = () => {
             const session = await authService.login(data)
             if (session) {
                 const userData = await authService.getCurrentUser()
-                if (userData) dispatch(authLogin({userData}))
+                if (userData) dispatch(authLogin(userData))
                 navigate("/")
             }
         } catch (error) {
