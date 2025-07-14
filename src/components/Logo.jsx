@@ -1,6 +1,8 @@
-const Logo = ({width = "100%"}) => {
+import img from "../assets/logo.jpg"
+
+const Logo = ({width = "50px"}) => {
     return (
-        <img src="" alt="Logo placeholder" style={{width}}/>
+        <img src={img} alt="Logo placeholder" style={{width, borderRadius: "40%"}}/>
     );
 }
  
