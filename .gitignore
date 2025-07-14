@@ -26,3 +26,5 @@ dist-ssr
 # projct files
 
 .env
+
+src/notes
