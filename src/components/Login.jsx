@@ -17,17 +17,26 @@ const Login = () => {
 
     const login = async (data) => {
         setError("")
+
         try {
             const session = await authService.login(data)
+
             if (session) {
-                const userData = await authService.getCurrentUser()
-                if (userData) dispatch(authLogin(userData))
+            const userData = await authService.getCurrentUser()
+
+            if (userData) {
+                dispatch(authLogin(userData));
                 navigate("/")
+            } else {
+                setError("Failed to retrieve user data after login.");
+                console.warn("Login succeeded but user data is null.");
+            }
             }
         } catch (error) {
-            setError(error.message)
+            setError(error.message || "Login failed");
+            console.error("Login error:", error);
         }
-    }
+        };
 
     return (
         <div className="flex items-center justify-center w-full">
