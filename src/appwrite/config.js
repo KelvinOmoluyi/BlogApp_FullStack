@@ -17,14 +17,27 @@ export class Service {
         this.bucket = new Storage(this.client)
     }
 
-    async getPost(slug){
-        try {
-            return await this.databases.getDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, slug)
-        } catch (error) {
-            console.log("Appwrite service :: getPost() :: ", error);
-            return false
-        }
-    }
+async getPost(slug) {
+  if (!slug) {
+    console.warn("getPost() called without a slug");
+    return null;
+  }
+
+  try {
+    const document = await this.databases.getDocument(
+      conf.appwriteDatabaseId,
+      conf.appwriteCollectionId,
+      slug
+    );
+
+    console.log("getPost(): Document fetched successfully:", document);
+    return document;
+  } catch (error) {
+    console.error("getPost(): Failed to fetch document:", error.message);
+    return null;
+  }
+}
+
 
     async getPosts(queries = [Query.equal("status", "active")] ){
         try {
@@ -113,11 +126,18 @@ export class Service {
         }
     }
 
-    getFilePreview(fileId){
-        return this.bucket.getFilePreview(
+    getFileView(fileId) {
+        if (!fileId) {
+            console.log("No fileId passed to getFileView");
+            return null;
+        }
+
+        const fileUrl = this.bucket.getFileView(
             conf.appwriteBucketId,
             fileId
-        ).href
+        );
+
+        return fileUrl;
     }
 }
 
