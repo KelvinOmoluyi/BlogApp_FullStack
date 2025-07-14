@@ -3,7 +3,7 @@ import './App.css'
 import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
 import { useDispatch } from 'react-redux'
-import { login, logout } from "./store/authSlice";
+import { login, logout, setLoading } from "./store/authSlice";
 import { useEffect } from 'react'
 import authService from './appwrite/auth'
 
@@ -11,24 +11,25 @@ function App() {
 
     const dispatch = useDispatch();
 
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const user = await authService.getCurrentUser(); // ✅ If logged in, returns user
-        dispatch(login(user));            // 🔁 Restore auth state
-      } catch (err) {
-        dispatch(logout());               // ❌ No session, ensure logout
-      }
-    };
-
-    checkSession();
-  }, []);
+    useEffect(() => {
+        authService.getCurrentUser()
+        .then((userData) => {
+          if (userData) {
+            dispatch(login(userData));
+          } else {
+            dispatch(logout());
+          }
+        })
+        .finally(() => {
+          dispatch(setLoading(false)); 
+        });
+    }, []);
 
   return (
     <>
     <div>
       <Header/>
-      <main>
+      <main className='min-h-120'>
         <Outlet />
       </main>
       <Footer/>
