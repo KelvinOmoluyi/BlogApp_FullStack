@@ -10,7 +10,7 @@ const postCard = ({$id, title, featuredImage}) => {
                 <div
                 className='w-full justify-center mb-4'
                 >
-                    <img src={appwriteService.getFilePreview(featuredImage)} alt={title}
+                    <img src={appwriteService.getFilePreview($id)} alt={title}
                     className='rounded-xl'
                     />
                 </div>
