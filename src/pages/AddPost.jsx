@@ -1,7 +1,14 @@
+import Container from "../components/container/Container"
+import PostForm from '../components/post-form/PostForm'
+
 const AddPost = () => {
     return (
-        <h1>Add post</h1>
-    );
+    <div className='py-6'>
+      <Container>
+        <PostForm />
+      </Container>
+    </div>
+  )
 }
  
 export default AddPost;
