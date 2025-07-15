@@ -12,12 +12,12 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        authService.getCurrentUser()
+        authService.getCurrentUser()  // getting user
         .then((userData) => {
           if (userData) {
-            dispatch(login(userData));
-          } else {
-            dispatch(logout());
+            dispatch(login(userData)) // dispatching user
+          } else {                    // to redux
+            dispatch(logout());     
           }
         })
         .finally(() => {
