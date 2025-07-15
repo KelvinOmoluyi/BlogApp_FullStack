@@ -15,9 +15,11 @@ const RTE = ({
             <Controller 
             name={name || "content"}
             control={control}
-            render={({field: {onChange}}) => (
+            render={({field: {onChange, value}}) => (
                 <Editor 
-                value={defaultValue}
+                apiKey="z8z7tgyitn4hgnp97zd9gews45lrr0dhaukof723tnoiap9j"
+                value={value}
+                defaultValue={defaultValue}
                 init={{
                     branding: false,
                     height: 500,
@@ -33,7 +35,7 @@ const RTE = ({
                         'removeformat | help',
                     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
                 }}
-                onEditorChange={onchange}
+                onEditorChange={onChange}
                 />
             )}
             />
