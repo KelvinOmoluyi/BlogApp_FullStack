@@ -19,10 +19,10 @@ const AuthLayout = ({children, authentication = true}) => {
   }, [auth.loading, auth.status, authentication, navigate]);
 
   if (auth.loading) {
-    return <p>Loading...</p>; // or return null or spinner
+    return <p>Loading...</p>
+  } else {
+    return <>{children}</>
   }
-
-  return auth.loading ? null : <>{children}</>
 }
 
 export default AuthLayout
