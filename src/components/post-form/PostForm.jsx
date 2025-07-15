@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../Button"
 import Input from "../Input.jsx"
@@ -9,6 +9,11 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const PostForm = ({post}) => {
+
+    const isLoggedIn = useSelector((state) => state.auth.status);
+    const user = useSelector((state) => state.auth.userData);
+
+
     // useForm hook
     const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
         defaultValues: {
@@ -68,7 +73,7 @@ const PostForm = ({post}) => {
     }, [])
 
     // initial the slug transform function as the user types
-    React.useEffect(() => {
+    useEffect(() => {
         watch((value, {name}) => {
             if(name === "title"){
                 setValue("slug", slugTransform(value.title), {shouldValidate: true})
@@ -114,7 +119,7 @@ const PostForm = ({post}) => {
                 />
                 {post && (
                     <div className="w-full mb-4">
-                        <img src={appwriteService.getFilePreview(post.featuredImage)} 
+                        <img src={appwriteService.getFileView(post.featured_img)} 
                         alt={post.title} 
                         className="rounded-lg"
                         />
@@ -123,7 +128,7 @@ const PostForm = ({post}) => {
 
                 <Select
                 options={["active", "inactive"]}
-                label={Status}
+                label={status}
                 className="mb-4"
                 {...register("status", {required: true})}
                 />
