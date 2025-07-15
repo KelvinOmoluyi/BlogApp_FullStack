@@ -24,7 +24,7 @@ const Signup = () => {
             if (userData) {
                 const userData = await authService.getCurrentUser()
                 // dispatching login action to the redux state
-                if (userData) dispatch(login({userData}))
+                if (userData) dispatch(login(userData))
                 navigate("/")
             }
         } catch (error) {
