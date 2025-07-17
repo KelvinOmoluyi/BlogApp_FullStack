@@ -1,6 +1,10 @@
+import {Login as LoginComponent} from "../components/index"
+
 const Login = () => {
     return (
-        <h1>Login</h1>
+        <div className="py-8">
+            <LoginComponent />
+        </div>
     );
 }
  
